@@ -1,0 +1,60 @@
+server:
+  port: 8030
+eureka:
+  instance:
+    hostname: spring-cloud-discovery
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    metadata-map:
+      user.name: ${security.user.name}
+      user.password: ${security.user.password}
+  client:
+    serviceUrl:
+      defaultZone: http://yangwensheng:${REGISTRY_SERVER_PASSWORD:123456}@spring-cloud-discovery:8761/eureka/
+zuul:
+  routes:
+    user-route:
+      path: /umc/**
+      sensitiveHeaders: "*"
+      service-id: spring-cloud-provider-user
+    log-route:
+      path: /log/**
+      service-id: spring-cloud-provider-log
+    msg-route:
+      path: /msg/**
+      sensitiveHeaders: "*"
+      service-id: spring-cloud-provider-msg
+  add-proxy-headers: true
+  add-host-header: true
+proxy:
+  auth:
+    routes:
+      user-route: oauth2
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+security:
+  user:
+    name: yangwensheng
+    password: 123456
+  oauth2:
+    client:
+      client-id: spring-cloud-gateway
+      client-secret: 123456
+      access-token-uri: http://spring-cloud-gateway:${server.port}/umc/oauth/token
+      user-authorization-uri: http://spring-cloud-gateway:${server.port}/umc/oauth/authorize
+    resource:
+      user-info-uri: http://spring-cloud-gateway:${server.port}/umc/user/currentUser
+      prefer-token-info: false
+logging:
+    level:
+        org.springframework.security: DEBUG
+    pattern:
+      level:

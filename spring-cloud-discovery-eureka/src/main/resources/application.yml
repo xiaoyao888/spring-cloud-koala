@@ -1,0 +1,22 @@
+server:
+  port: 8761                    # 指定该Eureka实例的端口
+eureka:
+  server:
+    enable-self-preservation: false #关闭自我保护模式
+  instance:
+    hostname: spring-cloud-discovery         # 指定该Eureka实例的主机名
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${security.user.name}:${security.user.password}@${eureka.instance.hostname}:${server.port}/eureka/
+security:
+  user:
+    name: yangwensheng
+    password: ${REGISTRY_SERVER_PASSWORD:123456}
+#查看info信息配置
+info:
+  app:
+  name: @project.name@
+  description: @project.description@
+  version: @project.version@

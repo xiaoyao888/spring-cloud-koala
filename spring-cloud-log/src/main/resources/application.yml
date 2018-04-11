@@ -1,0 +1,52 @@
+server:
+  port: 8001
+spring:
+  boot:
+    admin:
+      username: yangwensheng
+      password: 123456
+  redis:
+    host: 140.143.0.126
+    password: 123456
+    port: 6379
+    database: 0
+    pool:
+      max-idle: 8
+      max-wait: 1
+    timeout: 0
+  session:
+    store-type: none
+  data:
+    mongodb:
+      uri: mongodb://admin:y33LdMyASH50@140.143.0.126:27017/admin
+eureka:
+  instance:
+    hostname: spring-cloud-discovery
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    metadata-map:
+      user.name: ${security.user.name}
+      user.password: ${security.user.password}
+  client:
+    serviceUrl:
+      defaultZone: http://yangwensheng:${REGISTRY_SERVER_PASSWORD:123456}@spring-cloud-discovery:8761/eureka/
+env:
+rocketMq:
+  default-producer-grouop-name: ProducerGroup
+  transaction-producer-group-name: transactionProducerGroupName
+  namesrvAddr: 140.143.0.126:9876
+  instanceName: testProducer
+  maxMessageSize: 131072
+  sendMsgTimeout: 10000
+  topic: testTopic
+  tag: testTag
+  consume-thread-max: 64
+  consume-thread-min: 20
+#查看info信息配置
+info:
+  app:
+  name: @project.name@
+  description: @project.description@
+  version: @project.version@
+  owner: 190332447@qq.com
+  url: http://localhost:${server.port}/

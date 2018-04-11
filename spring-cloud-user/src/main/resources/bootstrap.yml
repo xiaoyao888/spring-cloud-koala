@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: spring-cloud-provider-user
+  cloud:
+    config:
+      uri: http://spring-cloud-config-server:8020
+      fail-fast: true
+      username: yangwensheng
+      password: ${CONFIG_SERVER_PASSWORD:123456}
+      retry:
+        initial-interval: 2000
+        max-interval: 10000
+        multiplier: 2
+        max-attempts: 10

@@ -1,0 +1,32 @@
+eureka:
+  instance:
+    hostname: spring-cloud-discovery
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://yangwensheng:${REGISTRY_SERVER_PASSWORD:123456}@spring-cloud-discovery:8761/eureka/
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
+ribbon:
+  ReadTimeout: 5000
+  ConnectTimeout: 5000
+
+spring:
+  rabbitmq:
+    host: spring-cloud-rabbitmq
+    username: yangwensheng
+    password: 123456
+  sleuth:
+    sampler:
+      percentage: 1
+    integration:
+      enabled: false
+    scheduled:
+      skip-pattern: "^org.*HystrixStreamTask$"

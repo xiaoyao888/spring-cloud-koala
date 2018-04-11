@@ -1,0 +1,55 @@
+server:
+  port: 8010
+spring:
+  rabbitmq:
+    host: spring-cloud-rabbitmq
+    username: yangwensheng
+    password: 123456
+  boot:
+    admin:
+      monitor:
+        period: 60000
+      discovery:
+        enabled: true
+      notify:
+        mail:
+          to: 190332447@qq.com
+          from: 1912114608@qq.com
+      routes:
+        endpoints: env,metrics,trace,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream
+      turbine:
+        clusters: default
+        location: http://spring-cloud-monitor:${turbine.stream.port}
+
+turbine:
+  stream:
+    port: 8041
+security:
+  user:
+    name: yangwensheng
+    password: ${MONITOR_SERVER_PASSWORD:123456}
+  basic:
+    enabled: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://yangwensheng:${REGISTRY_SERVER_PASSWORD:123456}@spring-cloud-discovery:8761/eureka/
+  instance:
+    hostname: spring-cloud-discovery
+    preferIpAddress: true
+    statusPageUrlPath: /
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    metadata-map:
+      user.name: ${security.user.name}
+      user.password: ${security.user.password}
+logging:
+  level:
+    org.springframework.cloud.netflix.zuul.filters.post.SendErrorFilter: error
+#查看info信息配置
+info:
+  app:
+  name: @project.name@
+  description: @project.description@
+  version: @project.version@
+  owner: 190332447@qq.com
+  url: http://${spring.cloud.client.ipAddress}:${server.port}

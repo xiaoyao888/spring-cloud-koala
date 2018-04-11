@@ -1,0 +1,34 @@
+server:
+  port: 8030
+
+management:
+  security:
+    enabled: false
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+zuul:
+  ignoredServices: '*'
+  routes:
+    user-route:
+      path: /umc/**
+      stripPrefix: false
+      sensitiveHeaders: "*"
+      service-id: spring-cloud-provider-user
+    log-route:
+      path: /log/**
+      sensitiveHeaders: "*"
+      service-id: spring-cloud-provider-log
+    msg-route:
+      path: /msg/**
+      sensitiveHeaders: "*"
+      service-id: spring-cloud-provider-msg
