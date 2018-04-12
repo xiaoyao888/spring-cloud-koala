@@ -28,7 +28,7 @@ Spring Cloud入门学习
 
 | 主机名配置（C:\Windows\System32\drivers\etc\hosts文件） |
 | ---------------------------------------- |
-| 127.0.0.1 discovery|spring-cloud-config-server|spring-cloud-provider-user|spring-cloud-provider-msg|spring-cloud-provider-gateway|spring-cloud-monitor
+| 127.0.0.1 spring-cloud-discovery spring-cloud-config-server spring-cloud-provider-gateway spring-cloud-monitor spring-cloud-rabbitmq spring-cloud-provider-user spring-cloud-provider-msg|
 
 ## 主机规划：
 
