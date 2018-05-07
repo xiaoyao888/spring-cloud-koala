@@ -75,7 +75,7 @@ public class LogController extends BaseController{
 	 *
 	 * @param log the log
 	 * @return wrapper wrapper
-	 * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+	 * @Author <a href="190332447@qq.com"/>杨文生</a>
 	 * @since 2018 /1/4 15:11
 	 */
 	@PostMapping("saveLog")
@@ -91,7 +91,7 @@ public class LogController extends BaseController{
 	 * <p>Description 分页查询日志</p>
 	 *
 	 * @return wrapper wrapper
-	 * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+	 * @Author <a href="190332447@qq.com"/>杨文生</a>
 	 * @since 2018 /1/4 15:11
 	 */
 	@PostMapping("listPage")

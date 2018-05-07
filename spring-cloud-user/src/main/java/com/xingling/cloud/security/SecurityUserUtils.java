@@ -13,7 +13,7 @@ public class SecurityUserUtils {
      * <p>Description 获取当前登录人信息</p>
      *
      * @return
-     * @Author        <a href="yangwensheng@meicai.cn"/>杨文生</a>
+     * @Author        <a href="190332447@qq.com"/>杨文生</a>
      * @since     2018/1/10 17:40
      */
     public static String getCurrentLoginName() {

@@ -22,4 +22,14 @@
       LEFT JOIN xl_role bb ON aa.role_id = bb.id
       WHERE aa.user_id = #{userId}
     </select>
+    <select id="getBindUserByRoleId" resultType="com.xingling.cloud.model.domain.User">
+        SELECT
+            bb.*
+        FROM
+            xl_user_role aa
+        LEFT JOIN xl_user bb ON aa.user_id = bb.id
+        WHERE
+            aa.role_id = #{roleId}
+        AND user_id != '1'
+    </select>
 </mapper>

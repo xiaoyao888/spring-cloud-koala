@@ -21,7 +21,7 @@ public interface ChatRobotService extends BaseService<Message> {
 	 * @param chatRobotMsgDto the chat robot msg dto
 	 * @return boolean boolean
 	 * @throws Exception the exception
-	 * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+	 * @Author <a href="190332447@qq.com"/>杨文生</a>
 	 * @since 2017 /12/27 16:59
 	 */
 	boolean sendChatRobotMsg(ChatRobotMsgDto chatRobotMsgDto);

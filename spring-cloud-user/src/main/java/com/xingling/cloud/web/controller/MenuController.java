@@ -1,0 +1,173 @@
+package com.xingling.cloud.web.controller;
+
+import com.xingling.cloud.model.domain.Menu;
+import com.xingling.cloud.model.dto.CheckMenuCodeDto;
+import com.xingling.cloud.model.vo.MenuTreeVo;
+import com.xingling.cloud.service.MenuService;
+import com.xingling.controller.BaseController;
+import com.xingling.dto.AuthUserDto;
+import com.xingling.wrap.WrapMapper;
+import com.xingling.wrap.Wrapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import tk.mybatis.mapper.entity.Example;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+/**
+ * <p>Title:      MenuController. </p>
+ * <p>Description TODO </p>
+ * <p>Copyright: Copyright (c) 2016</p>
+ * <p>Company:    http://www.xinglinglove.com </p>
+ *
+ * @author <a href="190332447@qq.com"/>杨文生</a>
+ * @since 2018 /4/27 9:57
+ */
+@RestController
+@RequestMapping(value = "/menu", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Api(value = "MenuController", tags = "MenuController", description = "菜单controller", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+public class MenuController extends BaseController {
+
+    @Resource
+    private MenuService menuService;
+
+    /**
+     * <p>Title:     getMenuTree. </p>
+     * <p>Description 查询菜单树</p>
+     *
+     * @return menu tree
+     * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+     * @since 2018 /4/27 11:54
+     */
+    @PostMapping(value = "/getMenuTree")
+    @ApiOperation(httpMethod = "POST", value = "分页查询权限列表")
+    public Wrapper<List<MenuTreeVo>> getMenuTree() {
+        List<MenuTreeVo> menuTreeVos = menuService.getMenuTree();
+        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, menuTreeVos);
+    }
+
+    @PostMapping(value = "/getMenuById/{menuId}")
+    @ApiOperation(httpMethod = "POST", value = "分页查询权限列表")
+    public Wrapper<Menu> getMenuById(@PathVariable String menuId) {
+        Menu menu = menuService.getMenuById(menuId);
+        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, menu);
+    }
+
+    /**
+     * <p>Title:      delete. </p>
+     * <p>Description 根据id删除菜单</p>
+     *
+     * @param id the id
+     * @return wrapper wrapper
+     * @Author <a href="190332447@qq.com"/>杨文生</a>
+     * @since 2018 /2/20 14:14
+     */
+    @PostMapping(value = "/delete/{id}")
+    @ApiOperation(httpMethod = "POST", value = "根据id删除菜单")
+    public Wrapper<Integer> delete(@PathVariable String id) {
+        AuthUserDto authUserDto = getLoginAuthDto();
+        int result = menuService.deleteMenuById(id, authUserDto);
+        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, result);
+    }
+
+    /**
+     * <p>Title:      enable. </p>
+     * <p>Description 启用菜单</p>
+     *
+     * @param id the id
+     * @return wrapper wrapper
+     * @Author <a href="190332447@qq.com"/>杨文生</a>
+     * @since 2018 /2/20 14:14
+     */
+    @PostMapping(value = "/enable/{id}")
+    @ApiOperation(httpMethod = "POST", value = "启用菜单")
+    public Wrapper<Integer> enable(@PathVariable String id) {
+        AuthUserDto authUserDto = getLoginAuthDto();
+        int result = menuService.enableMenuById(id, authUserDto);
+        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, result);
+    }
+
+    /**
+     * <p>Title:      disable. </p>
+     * <p>Description 禁用菜单</p>
+     *
+     * @param id the id
+     * @return wrapper wrapper
+     * @Author <a href="190332447@qq.com"/>杨文生</a>
+     * @since 2018 /2/20 14:14
+     */
+    @PostMapping(value = "/disable/{id}")
+    @ApiOperation(httpMethod = "POST", value = "禁用菜单")
+    public Wrapper<Integer> disable(@PathVariable String id) {
+        AuthUserDto authUserDto = getLoginAuthDto();
+        int result = menuService.disableMenuById(id, authUserDto);
+        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, result);
+    }
+
+    /**
+     * <p>Title:      modifyUser. </p>
+     * <p>Description 修改菜单信息</p>
+     *
+     * @param menu the menu
+     * @return wrapper wrapper
+     * @Author <a href="190332447@qq.com"/>杨文生</a>
+     * @since 2018 /2/20 15:38
+     */
+    @PostMapping(value = "/modifyMenu")
+    @ApiOperation(httpMethod = "POST", value = "修改菜单信息")
+    public Wrapper<Integer> modifyMenu(@ApiParam(name = "menu", value = "用户信息") @RequestBody Menu menu) {
+        AuthUserDto authUserDto = getLoginAuthDto();
+        int result = menuService.modifyMenu(menu, authUserDto);
+        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, result);
+    }
+
+    /**
+     * <p>Title:      saveMenuInfo. </p>
+     * <p>Description 保存菜单信息</p>
+     *
+     * @param menu the menu
+     * @return wrapper wrapper
+     * @Author <a href="190332447@qq.com"/>杨文生</a>
+     * @since 2018 /2/22 17:24
+     */
+    @PostMapping(value = "/saveMenuInfo")
+    @ApiOperation(httpMethod = "POST", value = "保存菜单信息")
+    public Wrapper<Integer> saveMenuInfo(@ApiParam(name = "menu", value = "菜单信息") @RequestBody Menu menu) {
+        AuthUserDto authUserDto = getLoginAuthDto();
+        int result = menuService.saveMenuInfo(menu, authUserDto);
+        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, result);
+    }
+
+    /**
+     * <p>Title:      checkMenuCode. </p>
+     * <p>Description 校验菜单编码唯一性</p>
+     *
+     * @param checkMenuCodeDto the check menu code dto
+     * @return wrapper wrapper
+     * @Author <a href="190332447@qq.com"/>杨文生</a>
+     * @since 2018 /2/24 17:08
+     */
+    @PostMapping(value = "/checkMenuCode")
+    @ApiOperation(httpMethod = "POST", value = "校验菜单编码唯一性")
+    public Wrapper<Boolean> checkMenuCode(@ApiParam(name = "checkMenuCodeDto", value = "菜单编码dto") @RequestBody CheckMenuCodeDto checkMenuCodeDto) {
+        boolean flag = false;
+        String menuId = checkMenuCodeDto.getMenuId();
+        String menuCode = checkMenuCodeDto.getMenuCode();
+        Example example = new Example(Menu.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("menuCode", menuCode);
+        if (StringUtils.isNotEmpty(menuId)) {
+            criteria.andNotEqualTo("id", menuId);
+        }
+        int result = menuService.selectCountByExample(example);
+        if (result > 0) {
+            flag = true;
+        }
+        return WrapMapper.ok(flag);
+    }
+}

@@ -18,9 +18,9 @@ import java.io.IOException;
  * <p>Title:      CustomerLogoutSuccessHandler. </p>
  * <p>Description 默认的退出成功处理器 </p>
  * <p>Copyright: Copyright (c) 2016</p>
- * <p>Company:    北京云杉世界信息技术有限公司 </p>
+ * <p>Company:    xinglinglove </p>
  *
- * @author         <a href="yangwensheng@meicai.cn"/>杨文生</a>
+ * @author         <a href="190332447@qq.com"/>杨文生</a>
  * @since      2018/2/7 11:17
  */
 @Component("customerLogoutSuccessHandler")

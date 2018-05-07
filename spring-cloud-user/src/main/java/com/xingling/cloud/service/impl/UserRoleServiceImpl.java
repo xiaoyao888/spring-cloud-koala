@@ -3,6 +3,7 @@ package com.xingling.cloud.service.impl;
 import com.google.common.collect.Lists;
 import com.xingling.cloud.mapper.UserRoleMapper;
 import com.xingling.cloud.model.domain.Authority;
+import com.xingling.cloud.model.domain.User;
 import com.xingling.cloud.model.domain.UserRole;
 import com.xingling.cloud.service.AuthorityService;
 import com.xingling.cloud.service.UserRoleService;
@@ -47,5 +48,10 @@ public class UserRoleServiceImpl extends BaseServiceImpl<UserRole> implements Us
     @Override
     public List<RoleDto> queryOwnRoles(UserRole query) {
         return userRoleMapper.queryOwnRoles(query);
+    }
+
+    @Override
+    public List<User> getBindUserByRoleId(String roleId) {
+        return userRoleMapper.getBindUserByRoleId(roleId);
     }
 }

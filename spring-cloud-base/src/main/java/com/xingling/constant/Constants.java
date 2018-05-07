@@ -42,4 +42,9 @@ public class Constants {
 
 
     public static final String TOKEN_AUTH_INFO = "CURRENT_USER_INFO";
+
+    /**
+     * 根菜单
+     */
+    public static final  String MENU_ROOT = "-1";
 }

@@ -3,9 +3,14 @@ package com.xingling.cloud.service.impl;
 import com.xingling.cloud.exception.BusinessException;
 import com.xingling.cloud.mapper.RoleMapper;
 import com.xingling.cloud.model.domain.Role;
+import com.xingling.cloud.model.domain.User;
+import com.xingling.cloud.model.dto.RoleBindUserDto;
 import com.xingling.cloud.service.RoleService;
+import com.xingling.cloud.service.UserRoleService;
+import com.xingling.cloud.service.UserService;
 import com.xingling.constant.Constants;
 import com.xingling.dto.AuthUserDto;
+import com.xingling.pojo.BaseEntiy;
 import com.xingling.service.mybatis.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +18,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * <p>Title:	  spring-cloud-koala <br/> </p>
@@ -27,6 +33,12 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
 
     @Resource
     private RoleMapper roleMapper;
+
+    @Resource
+    private UserRoleService userRoleService;
+
+    @Resource
+    private UserService userService;
 
     @Override
     public List<Role> queryListPage(Role role) {
@@ -110,5 +122,25 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
         role.setUpdater(authUserDto.getRealName());
         role.setUpdaterId(authUserDto.getUserId());
         return roleMapper.insertSelective(role);
+    }
+
+    @Override
+    public RoleBindUserDto getBindUserByRoleId(String roleId, String currentUserId) {
+        // 查询全部用户集合
+        List<User> allUserList = userService.selectAllExcludeSupper();
+
+        // 查询已绑定的用户集合
+        List<User> alreadyBindUserList = userRoleService.getBindUserByRoleId(roleId);
+
+        // 查询未绑定的用户集合
+        List<User> notBindUserList = allUserList.stream().filter(item -> !alreadyBindUserList.contains(item)).collect(Collectors.toList());
+
+        List<String> alreadyBindUserIds = alreadyBindUserList.stream().map(BaseEntiy::getId).collect(Collectors.toList());
+
+        RoleBindUserDto bindUserDto = new RoleBindUserDto();
+        bindUserDto.setAlreadyBindUserList(alreadyBindUserList);
+        bindUserDto.setNotBindUserList(notBindUserList);
+        bindUserDto.setAlreadyBindUserIds(alreadyBindUserIds);
+        return bindUserDto;
     }
 }

@@ -2,7 +2,7 @@ server:
   port: 8010
 spring:
   rabbitmq:
-    host: spring-cloud-rabbitmq
+    host: 140.143.0.126
     username: yangwensheng
     password: 123456
   boot:

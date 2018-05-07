@@ -87,10 +87,9 @@ public class UserController extends BaseController {
     @PostMapping(value = "/listPage")
     @ApiOperation(httpMethod = "POST", value = "分页查询用户列表")
     public Wrapper<PageInfo<User>> listPage(@ApiParam(name = "user", value = "用户信息") @RequestBody User user) {
-        PageInfo<User> pageInfo;
         PageHelper.startPage(user.getPageNum(), user.getPageSize());
         List<User> listPage = userService.queryListPage(user);
-        pageInfo = new PageInfo<>(listPage);
+        PageInfo<User> pageInfo = new PageInfo<>(listPage);
         return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, pageInfo);
     }
 
@@ -168,7 +167,7 @@ public class UserController extends BaseController {
      *
      * @param user the user
      * @return wrapper wrapper
-     * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+     * @Author <a href="190332447@qq.com"/>杨文生</a>
      * @since 2018 /2/20 15:38
      */
     @PostMapping(value = "/modifyUser")
@@ -185,7 +184,7 @@ public class UserController extends BaseController {
      *
      * @param user the user
      * @return wrapper wrapper
-     * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+     * @Author <a href="190332447@qq.com"/>杨文生</a>
      * @since 2018 /2/22 17:24
      */
     @PostMapping(value = "/saveUserInfo")
@@ -202,7 +201,7 @@ public class UserController extends BaseController {
      *
      * @param checkUserNameDto the check user name dto
      * @return wrapper
-     * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+     * @Author <a href="190332447@qq.com"/>杨文生</a>
      * @since 2018 /2/24 17:08
      */
     @PostMapping(value = "/checkUserName")

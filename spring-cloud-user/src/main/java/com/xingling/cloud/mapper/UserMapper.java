@@ -34,8 +34,18 @@ public interface UserMapper extends MyMapper<User> {
      *
      * @param user the user
      * @return page info
-     * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+     * @Author <a href="190332447@qq.com"/>杨文生</a>
      * @since 2018 /2/9 12:09
      */
     List<User> queryListPage(User user);
+
+    /**
+     * <p>Title:     selectAllExcludeSupper. </p>
+     * <p>Description 查询全部用户排除超级管理员</p>
+     *
+     * @return list list
+     * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+     * @since 2018 /4/28 15:01
+     */
+    List<User> selectAllExcludeSupper();
 }

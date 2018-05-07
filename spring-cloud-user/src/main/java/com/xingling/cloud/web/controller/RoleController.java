@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xingling.cloud.model.domain.Role;
 import com.xingling.cloud.model.dto.CheckRoleNameDto;
+import com.xingling.cloud.model.dto.RoleBindUserDto;
 import com.xingling.cloud.service.RoleService;
 import com.xingling.controller.BaseController;
 import com.xingling.dto.AuthUserDto;
@@ -49,10 +50,9 @@ public class RoleController extends BaseController {
     @PostMapping(value = "/listPage")
     @ApiOperation(httpMethod = "POST", value = "分页查询角色列表")
     public Wrapper<PageInfo<Role>> listPage(@ApiParam(name = "role", value = "角色信息") @RequestBody Role role) {
-        PageInfo<Role> pageInfo;
         PageHelper.startPage(role.getPageNum(), role.getPageSize());
         List<Role> listPage = roleService.queryListPage(role);
-        pageInfo = new PageInfo<>(listPage);
+        PageInfo<Role> pageInfo = new PageInfo<>(listPage);
         return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, pageInfo);
     }
 
@@ -114,7 +114,7 @@ public class RoleController extends BaseController {
      *
      * @param role the role
      * @return wrapper wrapper
-     * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+     * @Author <a href="190332447@qq.com"/>杨文生</a>
      * @since 2018 /2/20 15:38
      */
     @PostMapping(value = "/modifyRole")
@@ -131,7 +131,7 @@ public class RoleController extends BaseController {
      *
      * @param role the role
      * @return wrapper wrapper
-     * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+     * @Author <a href="190332447@qq.com"/>杨文生</a>
      * @since 2018 /2/22 17:24
      */
     @PostMapping(value = "/saveRoleInfo")
@@ -148,7 +148,7 @@ public class RoleController extends BaseController {
      *
      * @param checkRoleNameDto the check role name dto
      * @return wrapper wrapper
-     * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+     * @Author <a href="190332447@qq.com"/>杨文生</a>
      * @since 2018 /2/24 17:08
      */
     @PostMapping(value = "/checkRoleName")
@@ -168,5 +168,14 @@ public class RoleController extends BaseController {
             flag = true;
         }
         return WrapMapper.ok(flag);
+    }
+
+    @RequestMapping(value = "/getBindUserByRoleId/{roleId}", method = RequestMethod.POST)
+    @ApiOperation(httpMethod = "POST", value = "获取角色绑定用户页面数据")
+    public Wrapper<RoleBindUserDto> getBindUserByRoleId(@ApiParam(name = "roleId", value = "角色id") @PathVariable String roleId) {
+        AuthUserDto authUserDto = getLoginAuthDto();
+        String currentUserId = authUserDto.getUserId();
+        RoleBindUserDto bindUserDto = roleService.getBindUserByRoleId(roleId, currentUserId);
+        return WrapMapper.ok(bindUserDto);
     }
 }

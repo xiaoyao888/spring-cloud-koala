@@ -65,4 +65,7 @@
             AND aa.sex = #{sex}
         </if>
     </select>
+    <select id="selectAllExcludeSupper" resultType="com.xingling.cloud.model.domain.User">
+        SELECT aa.* from xl_user aa WHERE aa.id != '1'
+    </select>
 </mapper>

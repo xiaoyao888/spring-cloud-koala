@@ -149,4 +149,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 		user.setAge(age);
 		return userMapper.insertSelective(user);
 	}
+
+	@Override
+	public List<User> selectAllExcludeSupper() {
+		return userMapper.selectAllExcludeSupper();
+	}
 }

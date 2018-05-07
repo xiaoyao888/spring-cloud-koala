@@ -71,7 +71,7 @@ public class ChatRobotServiceImpl extends BaseServiceImpl<Message> implements Ch
      *
      * @param       chatRobotMsgDto  ChatRobotMsgDto
      * @return      void
-     * @Author        <a href="yangwensheng@meicai.cn"/>杨文生</a>
+     * @Author        <a href="190332447@qq.com"/>杨文生</a>
      * @since     2017/12/27 17:23
      */
     private void checkChatReBotMsg(ChatRobotMsgDto chatRobotMsgDto) {

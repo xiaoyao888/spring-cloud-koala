@@ -23,9 +23,9 @@ import java.util.*;
  * <p>Title:      WebLogAspect. </p>
  * <p>Description Web层日志切面 </p>
  * <p>Copyright: Copyright (c) 2016</p>
- * <p>Company:    北京云杉世界信息技术有限公司 </p>
+ * <p>Company:    xinglinglove </p>
  *
- * @author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+ * @author <a href="190332447@qq.com"/>杨文生</a>
  * @since 2018 /1/6 16:31
  */
 @Aspect
@@ -111,7 +111,7 @@ public class WebLogAspect {
      *
      * @param      request   HttpServletRequest
      * @return     Map<String, String>
-     * @Author        <a href="yangwensheng@meicai.cn"/>杨文生</a>
+     * @Author        <a href="190332447@qq.com"/>杨文生</a>
      * @since     2018/1/6 17:10
      */
     private Map<String, String> getHeadersInfo(HttpServletRequest request) {

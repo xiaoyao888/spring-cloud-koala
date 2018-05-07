@@ -38,4 +38,19 @@
             INNER JOIN xl_authority ee on ee.id = aa.authority_id
         where dd.id = #{userId}
     </select>
+
+    <select id="queryListPage" resultType="com.xingling.cloud.model.domain.Authority">
+        SELECT <include refid="Base_Column_List"/>
+        FROM xl_authority aa
+        WHERE 1=1 and aa.del = 0
+        <if test="authorityName != null and authorityName != ''">
+            AND aa.authority_name LIKE concat('%',#{authorityName},'%')
+        </if>
+        <if test="authorityCode != null and authorityCode != ''">
+            AND aa.authority_code = #{authorityCode}
+        </if>
+        <if test="status != null and status != ''">
+            AND aa.status = #{status}
+        </if>
+    </select>
 </mapper>

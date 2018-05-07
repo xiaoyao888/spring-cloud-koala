@@ -11,9 +11,9 @@ import java.io.Serializable;
  * <p>Title:      CheckRoleNameDto. </p>
  * <p>Description TODO </p>
  * <p>Copyright: Copyright (c) 2016</p>
- * <p>Company:    北京云杉世界信息技术有限公司 </p>
+ * <p>Company:    http://www.xinglinglove.com </p>
  *
- * @author         <a href="yangwensheng@meicai.cn"/>杨文生</a>
+ * @author         <a href="190332447@qq.com"/>杨文生</a>
  * @since      2018/2/24 17:06
  */
 @Data

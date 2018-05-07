@@ -33,7 +33,7 @@ public interface UserService extends BaseService<User> {
 	 *
 	 * @param loginName the login name
 	 * @return auth user info
-	 * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+	 * @Author <a href="190332447@qq.com"/>杨文生</a>
 	 * @since 2018 /2/8 14:43
 	 */
 	AuthUserDto getAuthUserInfo(String loginName);
@@ -44,7 +44,7 @@ public interface UserService extends BaseService<User> {
 	 *
 	 * @param param the param
 	 * @return page info
-	 * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+	 * @Author <a href="190332447@qq.com"/>杨文生</a>
 	 * @since 2018 /2/9 12:09
 	 */
 	List<User> queryListPage(User param);
@@ -53,10 +53,10 @@ public interface UserService extends BaseService<User> {
 	 * <p>Title:      deleteUserById. </p>
 	 * <p>Description 根据id删除用户信息</p>
 	 *
-	 * @param id the id
-	 * @param authUserDto
+	 * @param id          the id
+	 * @param authUserDto the auth user dto
 	 * @return int int
-	 * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+	 * @Author <a href="190332447@qq.com"/>杨文生</a>
 	 * @since 2018 /2/20 14:15
 	 */
 	int deleteUserById(String id, AuthUserDto authUserDto);
@@ -65,10 +65,10 @@ public interface UserService extends BaseService<User> {
 	 * <p>Title:      disableUserById. </p>
 	 * <p>Description 禁用用户</p>
 	 *
-	 * @param id the id
-	 * @param authUserDto
+	 * @param id          the id
+	 * @param authUserDto the auth user dto
 	 * @return int int
-	 * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+	 * @Author <a href="190332447@qq.com"/>杨文生</a>
 	 * @since 2018 /2/20 14:32
 	 */
 	int disableUserById(String id, AuthUserDto authUserDto);
@@ -77,10 +77,10 @@ public interface UserService extends BaseService<User> {
 	 * <p>Title:      enableUserById. </p>
 	 * <p>Description 启用用户</p>
 	 *
-	 * @param id the id
-	 * @param authUserDto
+	 * @param id          the id
+	 * @param authUserDto the auth user dto
 	 * @return int int
-	 * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+	 * @Author <a href="190332447@qq.com"/>杨文生</a>
 	 * @since 2018 /2/20 14:32
 	 */
 	int enableUserById(String id, AuthUserDto authUserDto);
@@ -89,10 +89,10 @@ public interface UserService extends BaseService<User> {
 	 * <p>Title:      modifyUser. </p>
 	 * <p>Description 修改用户信息</p>
 	 *
-	 * @param user the user
-	 * @param authUserDto
+	 * @param user        the user
+	 * @param authUserDto the auth user dto
 	 * @return int int
-	 * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+	 * @Author <a href="190332447@qq.com"/>杨文生</a>
 	 * @since 2018 /2/20 15:38
 	 */
 	int modifyUser(User user, AuthUserDto authUserDto);
@@ -101,11 +101,21 @@ public interface UserService extends BaseService<User> {
 	 * <p>Title:      saveUserInfo. </p>
 	 * <p>Description 保存用户信息</p>
 	 *
-	 * @param user the user
-	 * @param authUserDto
-	 * @return int
-	 * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+	 * @param user        the user
+	 * @param authUserDto the auth user dto
+	 * @return int int
+	 * @Author <a href="190332447@qq.com"/>杨文生</a>
 	 * @since 2018 /2/22 17:25
 	 */
 	int saveUserInfo(User user, AuthUserDto authUserDto);
+
+	/**
+	 * <p>Title:     selectAllExcludeSupper. </p>
+	 * <p>Description 查询全部用户排除超级管理员</p>
+	 *
+	 * @return list list
+	 * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+	 * @since 2018 /4/28 15:01
+	 */
+	List<User> selectAllExcludeSupper();
 }

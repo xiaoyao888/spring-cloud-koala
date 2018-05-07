@@ -1,5 +1,6 @@
 package com.xingling.cloud.service;
 
+import com.xingling.cloud.model.domain.User;
 import com.xingling.cloud.model.domain.UserRole;
 import com.xingling.service.mybatis.BaseService;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,7 +25,7 @@ public interface UserRoleService extends BaseService<UserRole> {
      *
      * @param userId the user id
      * @return own authority
-     * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+     * @Author <a href="190332447@qq.com"/>杨文生</a>
      * @since 2018 /1/16 15:24
      */
     Collection<GrantedAuthority> loadUserAuthorities(String userId);
@@ -34,9 +35,20 @@ public interface UserRoleService extends BaseService<UserRole> {
      * <p>Description 根据userId查询拥有的角色信息</p>
      *
      * @param query the query
-     * @return list
-     * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+     * @return list list
+     * @Author <a href="190332447@qq.com"/>杨文生</a>
      * @since 2018 /2/8 14:50
      */
     List<com.xingling.dto.RoleDto> queryOwnRoles(UserRole query);
+
+    /**
+     * <p>Title:     getBindUserByRoleId. </p>
+     * <p>Description 根据角色编号查询绑定的用户信息</p>
+     *
+     * @param roleId the role id
+     * @return bind user by role id
+     * @Author <a href="yangwensheng@meicai.cn"/>杨文生</a>
+     * @since 2018 /4/28 14:55
+     */
+    List<User> getBindUserByRoleId(String roleId);
 }

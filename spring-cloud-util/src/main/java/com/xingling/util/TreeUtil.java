@@ -1,6 +1,7 @@
 package com.xingling.util;
 
 
+import com.google.common.collect.Lists;
 import com.xingling.vo.TreeNode;
 
 import java.util.ArrayList;
@@ -11,70 +12,70 @@ import java.util.List;
  * <p>Description 树工具类 </p>
  * <p>Company:    http://www.xinglinglove.com </p>
  *
- * @Author         <a href="190332447@qq.com"/>杨文生</a>
- * @CreateDate     2017/8/18 13:45
+ * @Author <a href="190332447@qq.com"/>杨文生</a>
+ * @CreateDate 2017/8/18 13:45
  */
 public class TreeUtil {
-  /**
-   * 两层循环实现建树
-   * 
-   * @param treeNodes 传入的树节点列表
-   * @return
-   */
-  public static <T extends TreeNode> List<T> bulid(List<T> treeNodes, Object root) {
+    /**
+     * 两层循环实现建树
+     *
+     * @param treeNodes 传入的树节点列表
+     * @return
+     */
+    public static <T extends TreeNode> List<T> bulid(List<T> treeNodes, Object root) {
 
-    List<T> trees = new ArrayList<T>();
+        List<T> trees = Lists.newArrayList();
 
-    for (T treeNode : treeNodes) {
+        for (T treeNode : treeNodes) {
 
-      if (root.equals(treeNode.getParentId())) {
-        trees.add(treeNode);
-      }
+            if (root.equals(treeNode.getParentId())) {
+                trees.add(treeNode);
+            }
 
-      for (T it : treeNodes) {
-        if (it.getParentId() == treeNode.getId()) {
-          if (treeNode.getChildren() == null) {
-            treeNode.setChildren(new ArrayList<TreeNode>());
-          }
-          treeNode.add(it);
+            for (T it : treeNodes) {
+                if (it.getParentId().equals(treeNode.getId())) {
+                    if (treeNode.getChildren() == null) {
+                        treeNode.setChildren(new ArrayList<TreeNode>());
+                    }
+                    treeNode.add(it);
+                }
+            }
         }
-      }
+        return trees;
     }
-    return trees;
-  }
 
-  /**
-   * 使用递归方法建树
-   * 
-   * @param treeNodes
-   * @return
-   */
-  public static <T extends TreeNode> List<T> buildByRecursive(List<T> treeNodes,Object root) {
-    List<T> trees = new ArrayList<T>();
-    for (T treeNode : treeNodes) {
-      if (root.equals(treeNode.getParentId())) {
-        trees.add(findChildren(treeNode, treeNodes));
-      }
-    }
-    return trees;
-  }
-
-  /**
-   * 递归查找子节点
-   * 
-   * @param treeNodes
-   * @return
-   */
-  public static <T extends TreeNode> T findChildren(T treeNode, List<T> treeNodes) {
-    for (T it : treeNodes) {
-      if (treeNode.getId() == it.getParentId()) {
-        if (treeNode.getChildren() == null) {
-          treeNode.setChildren(new ArrayList<TreeNode>());
+    /**
+     * 使用递归方法建树
+     *
+     * @param treeNodes
+     * @return
+     */
+    public static <T extends TreeNode> List<T> buildByRecursive(List<T> treeNodes, Object root) {
+        List<T> trees = new ArrayList<T>();
+        for (T treeNode : treeNodes) {
+            if (root.equals(treeNode.getParentId())) {
+                trees.add(findChildren(treeNode, treeNodes));
+            }
         }
-        treeNode.add(findChildren(it, treeNodes));
-      }
+        return trees;
     }
-    return treeNode;
-  }
+
+    /**
+     * 递归查找子节点
+     *
+     * @param treeNodes
+     * @return
+     */
+    public static <T extends TreeNode> T findChildren(T treeNode, List<T> treeNodes) {
+        for (T it : treeNodes) {
+            if (treeNode.getId() == it.getParentId()) {
+                if (treeNode.getChildren() == null) {
+                    treeNode.setChildren(new ArrayList<TreeNode>());
+                }
+                treeNode.add(findChildren(it, treeNodes));
+            }
+        }
+        return treeNode;
+    }
 
 }
