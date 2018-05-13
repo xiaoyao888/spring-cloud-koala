@@ -14,9 +14,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>Title:	  MenuServiceImpl <br/> </p>
@@ -34,6 +33,14 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
     
     @Override
     public int saveMenuInfo(Menu menu, AuthUserDto authUserDto) {
+        Menu querMenu = new Menu();
+        querMenu.setId(menu.getPid());
+        querMenu.setDel(Constants.DELETE_NO);
+        Menu mn = menuMapper.selectOne(querMenu);
+        if (Objects.isNull(mn)) {
+            throw new BusinessException("父菜单信息不存在");
+        }
+        menu.setLevel(mn.getLevel()+1);
         menu.setCreator(authUserDto.getRealName());
         menu.setCreatorId(authUserDto.getUserId());
         menu.setUpdater(authUserDto.getRealName());
@@ -50,11 +57,11 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
         if (Objects.isNull(mn)) {
             throw new BusinessException("菜单信息不存在");
         }
-        querMenu.setCreator(authUserDto.getRealName());
-        querMenu.setCreatorId(authUserDto.getUserId());
-        querMenu.setUpdater(authUserDto.getRealName());
-        querMenu.setUpdaterId(authUserDto.getUserId());
-        return menuMapper.updateByPrimaryKeySelective(querMenu);
+        menu.setCreator(authUserDto.getRealName());
+        menu.setCreatorId(authUserDto.getUserId());
+        menu.setUpdater(authUserDto.getRealName());
+        menu.setUpdaterId(authUserDto.getUserId());
+        return menuMapper.updateByPrimaryKeySelective(menu);
     }
 
     @Override
@@ -104,6 +111,13 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
         if (Objects.isNull(menu)) {
             throw new BusinessException("菜单信息不存在");
         }
+        // 查询其是否还存在子节点
+        Menu selectMenu = new Menu();
+        selectMenu.setPid(id);
+        int count = menuMapper.selectCount(selectMenu);
+        if(count > 0){
+            throw new BusinessException("该菜单下还存在子菜单不能将其删除");
+        }
         querMenu.setDel(Constants.DELETE_YES);
         querMenu.setUpdater(authUserDto.getRealName());
         querMenu.setUpdaterId(authUserDto.getUserId());
@@ -113,13 +127,22 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 
     @Override
     public List<MenuTreeVo> getMenuTree() {
-        List<Menu> menuList = menuMapper.selectAll();
+        List<Menu> menuList = menuMapper.selectAllMenu();
+        Map<String, String> menuMap = menuList.stream().collect(Collectors.toMap(Menu::getId, Menu::getMenuName));
         List<MenuTreeVo> trees = Lists.newArrayList();
         MenuTreeVo node = null;
         for (Menu menu : menuList) {
             node = new MenuTreeVo();
             BeanUtils.copyProperties(menu, node);
             node.setParentId(menu.getPid());
+            String parentMenuName = menuMap.get(menu.getPid());
+            node.setParentMenuName(parentMenuName);
+            if("root".equals(menu.getMenuCode())){
+                node.setDisabled(true);
+            }else{
+                node.setDisabled(false);
+            }
+            node.setNumber(menu.getNumber());
             trees.add(node);
         }
         return TreeUtil.bulid(trees,Constants.MENU_ROOT) ;

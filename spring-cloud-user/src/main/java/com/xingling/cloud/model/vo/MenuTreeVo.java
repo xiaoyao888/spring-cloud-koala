@@ -26,6 +26,12 @@ public class MenuTreeVo extends TreeNode implements Serializable {
 	private String menuName;
 
 	/**
+	 * 父菜单名称
+	 */
+	@ApiModelProperty("父菜单名称")
+	private String parentMenuName;
+
+	/**
 	 * 菜单URL
 	 */
 	@ApiModelProperty("菜单URL")
@@ -40,5 +46,17 @@ public class MenuTreeVo extends TreeNode implements Serializable {
 	 * 序号
 	 */
 	@ApiModelProperty("序号")
-	private String number;
+	private Integer number;
+
+	/**
+	 * 禁用
+	 */
+	@ApiModelProperty("禁用")
+	private boolean disabled;
+
+	/**
+	 * 状态
+	 */
+	@ApiModelProperty("状态")
+	private String status;
 }

@@ -33,4 +33,7 @@
     id, version, menu_code, menu_name, status, url, icon, pid, level, leaf, number, creator_id, 
     creator, create_time, updater_id, updater, update_time, del
   </sql>
+    <select id="selectAllMenu" resultType="com.xingling.cloud.model.domain.Menu">
+      SELECT <include refid="Base_Column_List"/> from xl_menu aa where aa.del = 0 ORDER BY number ASC,`level` ASC
+    </select>
 </mapper>
