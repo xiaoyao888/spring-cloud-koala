@@ -170,4 +170,20 @@ public class MenuController extends BaseController {
         }
         return WrapMapper.ok(flag);
     }
+
+    /**
+     * <p>Title:     select2MenuList. </p>
+     * <p>Description 下来列表查询所有菜单</p>
+     *
+     * @param
+     * @return
+     * @Author        <a href="yangwensheng@meicai.cn"/>杨文生</a>
+     * @since     2018/5/14 10:00
+     */
+    @PostMapping(value = "/select2MenuList")
+    @ApiOperation(httpMethod = "POST", value = "分页查询权限列表")
+    public Wrapper<List<Menu>> select2MenuList() {
+        List<Menu> menuList = menuService.selectAll();
+        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, menuList);
+    }
 }

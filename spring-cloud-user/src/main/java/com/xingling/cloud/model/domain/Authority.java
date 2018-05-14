@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 
 @Data
@@ -41,4 +42,10 @@ public class Authority extends BaseEntiy implements Serializable {
      */
     @Column(name = "menu_id")
     private String menuId;
+
+    /**
+     * 菜单编号
+     */
+    @Transient
+    private String menuName;
 }

@@ -40,9 +40,11 @@
     </select>
 
     <select id="queryListPage" resultType="com.xingling.cloud.model.domain.Authority">
-        SELECT <include refid="Base_Column_List"/>
-        FROM xl_authority aa
-        WHERE 1=1 and aa.del = 0
+        SELECT
+        aa.*,bb.menu_name as menuName
+        FROM
+        xl_authority aa
+        LEFT JOIN xl_menu bb on aa.menu_id = bb.id
         <if test="authorityName != null and authorityName != ''">
             AND aa.authority_name LIKE concat('%',#{authorityName},'%')
         </if>
@@ -51,6 +53,9 @@
         </if>
         <if test="status != null and status != ''">
             AND aa.status = #{status}
+        </if>
+        <if test="menuId != null and menuId != ''">
+            AND aa.menu_id = #{menuId}
         </if>
     </select>
 </mapper>
